@@ -3,17 +3,26 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 const API_BASE = window.API_URL || (location.hostname === 'localhost' || location.hostname === '127.0.0.1' ? '' : 'https://alharabackend.vercel.app');
 const asset = u => (!u || u.startsWith('http') || u.startsWith('data:')) ? u : (API_BASE + u);
 let D = null, tab = 'orders', editId = null;
+const getToken = () => localStorage.getItem('alhara_admin_token') || '';
+const setToken = t => { if (t) localStorage.setItem('alhara_admin_token', t); };
+const clearToken = () => localStorage.removeItem('alhara_admin_token');
 
 async function api(method, url, body) {
   const target = url.startsWith('http') ? url : (API_BASE + url);
+  const token = getToken();
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) {
+    headers['Authorization'] = 'Bearer ' + token;
+    headers['x-session-id'] = token;
+  }
   const r = await fetch(target, {
     method,
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: body ? JSON.stringify(body) : undefined,
     credentials: 'include'
   });
   const j = await r.json().catch(() => ({}));
-  if (r.status === 401 && url !== '/api/login') { showLogin(); throw new Error('Please sign in again'); }
+  if (r.status === 401 && url !== '/api/login') { clearToken(); showLogin(); throw new Error('Please sign in again'); }
   if (!r.ok) throw new Error(j.error || 'Something went wrong');
   return j;
 }
@@ -24,9 +33,11 @@ async function load() { D = await api('GET', '/api/admin/data'); $('#login').hid
 
 $('#loginForm').onsubmit = run(async e => {
   e.preventDefault(); const f = new FormData(e.target);
-  await api('POST', '/api/login', { username: f.get('username'), password: f.get('password') }); e.target.reset(); await load();
+  const res = await api('POST', '/api/login', { username: f.get('username'), password: f.get('password') });
+  if (res.token) setToken(res.token);
+  e.target.reset(); await load();
 });
-$('#logout').onclick = run(async () => { await api('POST', '/api/logout'); showLogin(); });
+$('#logout').onclick = run(async () => { await api('POST', '/api/logout'); clearToken(); showLogin(); });
 $('#tabs').onclick = e => { const b = e.target.closest('button'); if (b) { tab = b.dataset.tab; editId = null; render(); } };
 
 // ----- images: resized in the browser, then uploaded -----
