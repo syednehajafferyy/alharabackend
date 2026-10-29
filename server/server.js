@@ -13,7 +13,8 @@ try {
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = process.env.DATA_DIR || path.join(ROOT, 'data');
 const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(ROOT, 'uploads');
-const ADMIN_USER = process.env.ADMIN_USER || '';
+const ADMIN_USER = process.env.ADMIN_USER || process.env.ADMIN_EMAIL || '';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
 const [SALT, HASH] = (process.env.ADMIN_PASSWORD_HASH || '').split(':');
 
 try { fs.mkdirSync(DATA_DIR, { recursive: true }); } catch {}
@@ -219,6 +220,7 @@ async function destroySession(req) {
 }
 
 function checkPassword(pw) {
+  if (ADMIN_PASSWORD && String(pw) === ADMIN_PASSWORD) return true;
   if (!SALT || !HASH) return false;
   const a = crypto.scryptSync(String(pw), SALT, 32), b = Buffer.from(HASH, 'hex');
   return a.length === b.length && crypto.timingSafeEqual(a, b);
@@ -251,7 +253,9 @@ async function api(req, res, p) {
     if (Date.now() - a.t > 15 * 6e4) { a.n = 0; a.t = Date.now(); }
     if (a.n >= 8) return send(res, 429, { error: 'Too many attempts. Try again in 15 minutes.' });
     const b = await readBody(req);
-    const ok = String(b.username) === ADMIN_USER && checkPassword(b.password);
+    const u = String(b.username || b.email || '').trim().toLowerCase();
+    const okUser = u === ADMIN_USER.trim().toLowerCase() || (process.env.ADMIN_EMAIL && u === process.env.ADMIN_EMAIL.trim().toLowerCase());
+    const ok = okUser && checkPassword(b.password);
     if (!ok) { a.n++; attempts.set(ip, a); return send(res, 401, { error: 'Wrong username or password' }); }
     attempts.delete(ip);
     const t = crypto.randomBytes(32).toString('hex');
