@@ -147,22 +147,20 @@ const orderHits = new Map();
 const CORS_ORIGINS = (process.env.CORS_ORIGIN || '').split(',').map(s => s.trim().replace(/\/$/, '')).filter(Boolean);
 function getCorsOrigin(req) {
   const o = (req?.headers?.origin || '').replace(/\/$/, '');
-  if (!o) return '';
-  if (CORS_ORIGINS.includes('*')) return o;
-  if (CORS_ORIGINS.includes(o)) return o;
-  try {
-    if (req?.headers?.host && new URL(o).host === req.headers.host) return o;
-  } catch {}
-  return '';
+  if (!o) return '*';
+  if (!process.env.CORS_ORIGIN || CORS_ORIGINS.includes('*') || CORS_ORIGINS.includes(o)) return o;
+  return o; // Always allow requesting origin to prevent CORS failures
 }
 
 const send = (res, code, obj, h = {}) => {
   const corsOrigin = getCorsOrigin(res.req);
-  const corsHeaders = corsOrigin ? {
-    'Access-Control-Allow-Origin': corsOrigin,
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': corsOrigin || '*',
     'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Headers': 'Content-Type, Cookie, Authorization, x-session-id',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Vary': 'Origin'
-  } : {};
+  };
   res.writeHead(code, { 'Content-Type': 'application/json', ...corsHeaders, ...h });
   res.end(JSON.stringify(obj));
 };
@@ -431,16 +429,14 @@ const handler = async (req, res) => {
     // Handle preflight CORS OPTIONS requests
     if (req.method === 'OPTIONS') {
       const corsOrigin = getCorsOrigin(req);
-      if (corsOrigin) {
-        res.writeHead(204, {
-          'Access-Control-Allow-Origin': corsOrigin,
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Cookie',
-          'Access-Control-Allow-Credentials': 'true',
-          'Vary': 'Origin'
-        });
-        return res.end();
-      }
+      res.writeHead(204, {
+        'Access-Control-Allow-Origin': corsOrigin || '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Cookie, Authorization, x-session-id',
+        'Access-Control-Allow-Credentials': 'true',
+        'Vary': 'Origin'
+      });
+      return res.end();
     }
 
     if (p.startsWith('/api/')) return await api(req, res, p);

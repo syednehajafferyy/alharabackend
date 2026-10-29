@@ -8,23 +8,37 @@ const setToken = t => { if (t) localStorage.setItem('alhara_admin_token', t); };
 const clearToken = () => localStorage.removeItem('alhara_admin_token');
 
 async function api(method, url, body) {
-  const target = url.startsWith('http') ? url : (API_BASE + url);
   const token = getToken();
   const headers = { 'Content-Type': 'application/json' };
   if (token) {
     headers['Authorization'] = 'Bearer ' + token;
     headers['x-session-id'] = token;
   }
-  const r = await fetch(target, {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-    credentials: 'include'
-  });
-  const j = await r.json().catch(() => ({}));
-  if (r.status === 401 && url !== '/api/login') { clearToken(); showLogin(); throw new Error('Please sign in again'); }
-  if (!r.ok) throw new Error(j.error || 'Something went wrong');
-  return j;
+
+  const endpoints = [];
+  if (API_BASE && !url.startsWith('http')) endpoints.push(API_BASE + url);
+  if (!url.startsWith('http')) endpoints.push(url);
+  if (!endpoints.includes('https://alharabackend.vercel.app' + url)) endpoints.push('https://alharabackend.vercel.app' + url);
+
+  let lastErr = null;
+  for (const ep of endpoints) {
+    try {
+      const r = await fetch(ep, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : undefined,
+        credentials: 'include'
+      });
+      const j = await r.json().catch(() => ({}));
+      if (r.status === 401 && url !== '/api/login') { clearToken(); showLogin(); throw new Error('Please sign in again'); }
+      if (!r.ok) throw new Error(j.error || 'Something went wrong');
+      return j;
+    } catch (err) {
+      lastErr = err;
+      if (err.message === 'Please sign in again' || (err.message && err.message.includes('Wrong'))) throw err;
+    }
+  }
+  throw lastErr || new Error('Could not connect to server');
 }
 function msg(t, bad) { const m = $('#msg'); m.textContent = t; m.className = bad ? 'bad' : 'ok'; m.hidden = false; clearTimeout(msg.t); msg.t = setTimeout(() => m.hidden = true, 4000); }
 const run = fn => async (...a) => { try { await fn(...a); } catch (e) { msg(e.message, true); } };
