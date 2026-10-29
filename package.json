@@ -1,0 +1,14 @@
+{
+  "name": "al-hara-cafeteria-backend",
+  "version": "1.0.0",
+  "description": "Backend API server for Al Hara Cafeteria",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "hash": "node server/hash.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

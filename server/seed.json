@@ -1,0 +1,167 @@
+{
+ "content": {
+  "heroTitle": "Good Food. Good Mood.",
+  "heroText": "Fresh plates, warm drinks and a calm corner to enjoy them. From a slow breakfast to a sweet afternoon treat, there is always a seat for you at Al Hara.",
+  "heroBtn1Text": "Explore Our Menu",
+  "heroBtn1Link": "#menu",
+  "heroBtn2Text": "Find Us",
+  "heroBtn2Link": "#contact",
+  "orderLink": "",
+  "aboutTitle": "A calm corner for good food",
+  "aboutText": "Al Hara Cafeteria is a place to slow down. Pull up a chair, order something warm or something cold, and enjoy food made fresh for you.\n\nWe keep the menu simple and the atmosphere easy. It is a spot for a quiet breakfast, a lunch with friends, or an afternoon coffee with something sweet.",
+  "phone": "",
+  "whatsapp": "",
+  "address": "",
+  "mapsLink": "",
+  "hours": "",
+  "instagram": "",
+  "facebook": "",
+  "announcement": "Made fresh, served with love",
+  "announcementOn": true,
+  "logo": "",
+  "heroImage": "/images/hero.svg",
+  "aboutImage": "/images/about.svg",
+  "accent": "#B9CBA8",
+  "accent2": "#F5D6C6"
+ },
+ "menu": [
+  {
+   "id": "m1",
+   "name": "Fresh Lemonade",
+   "desc": "Freshly squeezed lemon over ice with a hint of mint. Cool, sharp and refreshing.",
+   "price": "Rs 250",
+   "category": "Drinks",
+   "image": "/images/lemonade.svg",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "m2",
+   "name": "Masala Chai",
+   "desc": "Strong tea simmered with warming spices and milk, served piping hot.",
+   "price": "Rs 150",
+   "category": "Drinks",
+   "image": "/images/chai.svg",
+   "featured": false,
+   "visible": true
+  },
+  {
+   "id": "m3",
+   "name": "Iced Coffee",
+   "desc": "Cold coffee layered with milk and topped with a swirl of cream.",
+   "price": "Rs 400",
+   "category": "Drinks",
+   "image": "/images/coffee.svg",
+   "featured": false,
+   "visible": true
+  },
+  {
+   "id": "m4",
+   "name": "Club Sandwich",
+   "desc": "Toasted bread stacked with chicken, egg, lettuce and tomato, held together with a pick.",
+   "price": "Rs 650",
+   "category": "Mains",
+   "image": "/images/sandwich.svg",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "m5",
+   "name": "Chicken Wrap",
+   "desc": "Warm tortilla rolled around grilled chicken, crisp vegetables and a creamy sauce.",
+   "price": "Rs 550",
+   "category": "Mains",
+   "image": "/images/wrap.svg",
+   "featured": false,
+   "visible": true
+  },
+  {
+   "id": "m6",
+   "name": "Creamy Pasta",
+   "desc": "Tender pasta in a rich tomato and cream sauce, finished with fresh basil.",
+   "price": "Rs 750",
+   "category": "Mains",
+   "image": "/images/pasta.svg",
+   "featured": false,
+   "visible": true
+  },
+  {
+   "id": "m7",
+   "name": "Garden Salad",
+   "desc": "Crisp greens, tomato, cucumber and olives with a light dressing.",
+   "price": "Rs 450",
+   "category": "Mains",
+   "image": "/images/salad.svg",
+   "featured": false,
+   "visible": true
+  },
+  {
+   "id": "m8",
+   "name": "Fluffy Pancakes",
+   "desc": "A tall stack of soft pancakes with butter, syrup and berries.",
+   "price": "Rs 500",
+   "category": "Breakfast",
+   "image": "/images/pancakes.svg",
+   "featured": true,
+   "visible": true
+  },
+  {
+   "id": "m9",
+   "name": "Chocolate Cake",
+   "desc": "Layers of moist chocolate sponge and cream under a smooth pink frosting.",
+   "price": "Rs 450",
+   "category": "Desserts",
+   "image": "/images/cake.svg",
+   "featured": false,
+   "visible": true
+  },
+  {
+   "id": "m10",
+   "name": "Fudge Brownie",
+   "desc": "Dense, gooey chocolate brownie dusted with powdered sugar.",
+   "price": "Rs 300",
+   "category": "Desserts",
+   "image": "/images/brownie.svg",
+   "featured": true,
+   "visible": true
+  }
+ ],
+ "gallery": [
+  {
+   "id": "g1",
+   "image": "/images/g-latte.svg",
+   "caption": "Morning latte",
+   "order": 1
+  },
+  {
+   "id": "g2",
+   "image": "/images/g-croissant.svg",
+   "caption": "Warm croissants",
+   "order": 2
+  },
+  {
+   "id": "g3",
+   "image": "/images/g-cupcakes.svg",
+   "caption": "Cupcake corner",
+   "order": 3
+  },
+  {
+   "id": "g4",
+   "image": "/images/g-tea.svg",
+   "caption": "Tea time",
+   "order": 4
+  },
+  {
+   "id": "g5",
+   "image": "/images/g-fruit.svg",
+   "caption": "Fresh fruit",
+   "order": 5
+  },
+  {
+   "id": "g6",
+   "image": "/images/g-counter.svg",
+   "caption": "Behind the counter",
+   "order": 6
+  }
+ ]
+}
