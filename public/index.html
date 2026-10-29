@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al Hara Cafeteria</title>
+<meta name="description" content="Al Hara Cafeteria — good food, good mood.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="strip" id="strip" hidden><div class="strip-track" id="stripTrack"></div></div>
+<header class="nav" id="nav">
+  <a href="#home" class="brand" id="brand">Al Hara <em>Cafeteria</em></a>
+  <nav id="links">
+    <a href="#home">Home</a><a href="#menu">Menu</a><a href="#about">About</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
+    <a href="#" class="btn btn-solid" id="orderBtn" data-cart>Order Now</a>
+  </nav>
+  <button class="cart-btn" id="cartBtn" data-cart aria-label="Open cart">Cart <b id="cartCount">0</b></button>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-text">
+    <p class="eyebrow">Welcome to Al Hara</p>
+    <h1 id="heroTitle"></h1>
+    <p id="heroText"></p>
+    <div class="actions"><a class="btn btn-solid" id="heroBtn1"></a><a class="btn btn-line" id="heroBtn2"></a><button class="btn btn-peach" data-cart>Order now</button></div>
+  </div>
+  <div class="hero-art">
+    <div class="blob" id="heroBlob"></div>
+    <span class="fchip fc1">Warm drinks</span><span class="fchip fc2">Fresh plates</span><span class="fchip fc3">Sweet treats</span>
+    <div class="badge"><svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="c" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#c">Made Fresh • Served with Love • </textPath></text></svg></div>
+    <svg class="doodle d1" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 35C5 15 20 5 35 5c0 20-10 30-30 30zM5 35L25 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="doodle d2" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3l3 11 11 3-11 3-3 11-3-11-11-3 11-3z" fill="currentColor"/></svg>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true"><div id="bandTrack"></div></div>
+
+<section class="wrap reveal" id="cats">
+  <p class="eyebrow">Browse by craving</p><h2>What are you in the mood for?</h2>
+  <div class="cat-grid" id="catGrid"></div>
+</section>
+
+<section class="wrap reveal" id="menu" style="padding-top:1rem">
+  <p class="eyebrow">Our menu</p><h2>Something for every craving</h2>
+  <div class="filters" id="filters"></div>
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none" style="color:var(--sage)" aria-hidden="true"><path d="M0 35C240 0 480 70 720 35s480-35 720 0V70H0z" fill="currentColor"/></svg>
+<section class="fav reveal" id="favSec" hidden>
+  <div class="wrap"><p class="eyebrow">Signature favorites</p><h2>The ones we're proud of</h2><div id="favList"></div></div>
+</section>
+<svg class="wave flip" viewBox="0 0 1440 70" preserveAspectRatio="none" style="color:var(--sage)" aria-hidden="true"><path d="M0 35C240 0 480 70 720 35s480-35 720 0V70H0z" fill="currentColor"/></svg>
+
+<section class="wrap reveal" id="values">
+  <p class="eyebrow">Why Al Hara</p><h2>Simple things, done with care</h2>
+  <div class="values">
+    <div class="val"><i></i><h3>Made fresh</h3><p>Plates and drinks prepared to order, so every bite and every sip feels right.</p></div>
+    <div class="val"><i></i><h3>Warm and calm</h3><p>Soft light, easy seating and no rush. Stay for a quick bite or a long chat.</p></div>
+    <div class="val"><i></i><h3>Something for everyone</h3><p>Breakfast, mains, drinks and desserts, with a menu that is easy to explore.</p></div>
+  </div>
+</section>
+
+<section class="how reveal" id="how">
+  <div class="wrap"><p class="eyebrow">How ordering works</p><h2>Three easy steps</h2>
+  <div class="steps">
+    <div class="step"><h3>Pick your favorites</h3><p>Browse the menu and tap <strong>Add</strong> on anything that looks good.</p></div>
+    <div class="step"><h3>Review your cart</h3><p>Open the cart to change quantities, add your name and a note.</p></div>
+    <div class="step"><h3>Send your order</h3><p id="stepSend">Send your order to the cafeteria in one tap.</p></div>
+  </div></div>
+</section>
+
+<section class="wrap about reveal" id="about">
+  <div class="about-img blob2" id="aboutImg"></div>
+  <div><p class="eyebrow">Our place</p><h2 id="aboutTitle"></h2><p class="about-text" id="aboutText"></p>
+  <a class="btn btn-line" href="#menu" style="margin-top:1.4rem">See what's cooking</a></div>
+</section>
+
+<section class="wrap reveal" id="gallery" hidden>
+  <p class="eyebrow">Gallery</p><h2>A little taste of Al Hara</h2><div class="masonry" id="masonry"></div>
+</section>
+
+<section class="wrap reveal" id="faq" style="padding-top:1rem">
+  <p class="eyebrow">Good to know</p><h2>Quick answers</h2><div class="faq" id="faqList"></div>
+</section>
+
+<section class="cta reveal"><div class="wrap">
+  <h2>Hungry yet?</h2><p>Your table, your takeaway, your treat — start your order in a few taps.</p>
+  <button class="btn btn-solid" data-cart>Start your order</button>
+</div></section>
+
+<section class="contact reveal" id="contact">
+  <div class="wrap grid2">
+    <div><p class="eyebrow">Visit us</p><h2>Come hungry, leave happy</h2><div class="info" id="info"></div></div>
+    <div class="hours-card"><h3>Opening hours</h3><div id="hours"></div></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <div><div class="brand" id="footBrand">Al Hara <em>Cafeteria</em></div><p class="small" id="footInfo"></p></div>
+  <nav><a href="#menu">Menu</a><a href="#about">About</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></nav>
+  <div class="socials" id="socials"></div>
+</div><p class="copy">© <span id="yr"></span> Al Hara Cafeteria. All rights reserved.</p></footer>
+
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer" aria-label="Your order" aria-hidden="true">
+  <div class="dh"><h3>Your order</h3><button class="x" id="closeCart" aria-label="Close cart">×</button></div>
+  <div class="db" id="cartItems"></div>
+  <div class="df" id="cartForm">
+    <div class="total"><span>Total</span><strong id="cartTotal"></strong></div>
+    <input id="custName" placeholder="Your name" maxlength="60" autocomplete="name">
+    <input id="custPhone" type="tel" placeholder="Phone number" maxlength="25" autocomplete="tel">
+    <textarea id="custNote" rows="2" placeholder="Note: table number, allergies, pickup time" maxlength="200"></textarea>
+    <button class="btn btn-solid btn-place" id="sendOrder">Place Order</button>
+    <button class="link" id="clearCart">Clear cart</button>
+  </div>
+  <div class="done" id="done" hidden>
+    <h3>Order placed</h3><p id="doneMsg"></p><pre id="doneSum"></pre>
+    <a class="btn btn-line" id="doneWa" target="_blank" rel="noopener" hidden>Send a copy on WhatsApp</a>
+    <button class="btn btn-solid" id="doneClose">Back to menu</button>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+<script src="/js/main.js"></script>
+</body>
+</html>

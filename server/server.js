@@ -428,6 +428,36 @@ const handler = async (req, res) => {
     if (p.startsWith('/api/')) return await api(req, res, p);
     if (p.startsWith('/uploads/')) return await serveUpload(req, res, p.slice(9));
 
+    // Serve public images (SVGs, icons)
+    if (p.startsWith('/images/')) {
+      const rel = decodeURIComponent(p.slice(8));
+      const f = path.join(ROOT, 'public', 'images', rel);
+      if (f.startsWith(path.join(ROOT, 'public', 'images')) && fs.existsSync(f) && fs.statSync(f).isFile()) {
+        res.writeHead(200, {
+          'Content-Type': MIME[path.extname(f).toLowerCase()] || 'image/svg+xml',
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'public, max-age=31536000, immutable'
+        });
+        return fs.createReadStream(f).pipe(res);
+      }
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Image not found' }));
+    }
+
+    // Serve admin panel
+    if (p === '/admin' || p.startsWith('/admin/')) {
+      let rel = p === '/admin' ? 'index.html' : p.slice(7);
+      if (!rel || rel === '/') rel = 'index.html';
+      const f = path.join(ROOT, 'admin', rel);
+      if (f.startsWith(path.join(ROOT, 'admin')) && fs.existsSync(f) && fs.statSync(f).isFile()) {
+        res.writeHead(200, {
+          'Content-Type': MIME[path.extname(f).toLowerCase()] || 'text/html',
+          'Access-Control-Allow-Origin': '*'
+        });
+        return fs.createReadStream(f).pipe(res);
+      }
+    }
+
     // Health/status endpoint for Vercel
     if (p === '/' || p === '/health') {
       res.writeHead(200, { 'Content-Type': 'application/json' });
