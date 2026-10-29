@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin — Al Hara Cafeteria</title><meta name="robots" content="noindex"><link rel="stylesheet" href="admin.css"></head>
+<title>Admin — Al Hara Cafeteria</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/admin/admin.css"></head>
 <body>
 <div id="msg" hidden role="status"></div>
-<main id="login" class="card narrow" hidden>
+<main id="login" class="card narrow">
   <h1>Al Hara Cafeteria</h1><p class="muted">Admin sign in</p>
-  <form id="loginForm"><label>Username<input name="username" autocomplete="username" required></label>
+  <form id="loginForm"><label>Username or Email<input name="username" autocomplete="username" required></label>
   <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
   <button class="btn">Sign in</button></form>
 </main>
@@ -14,5 +14,5 @@
   <nav id="tabs"><button data-tab="orders">Orders</button><button data-tab="menu">Menu</button><button data-tab="content">Website content</button><button data-tab="gallery">Gallery</button><button data-tab="design">Design</button></nav>
   <section id="view"></section>
 </div>
-<script src="admin.js"></script>
+<script src="/admin/admin.js"></script>
 </body></html>
